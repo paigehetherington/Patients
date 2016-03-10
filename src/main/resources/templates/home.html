@@ -1,0 +1,32 @@
+<html>
+<body>
+
+{{^name}}
+
+<form action="/login" method="post">
+<input type="text" placeholder="Username" name="userName"/>
+<input type="text" placeholder="Passwrod" name="password"/>
+<button type="submit">Submit</button>
+</form>
+{{/name}}
+
+{{#name}}
+
+{{name}}
+<br>
+
+<form action="/logout" method="post">
+<button type="submit">Logout</button>
+
+
+</form>
+
+
+
+
+
+{{/name}}
+
+
+</body>
+</html>
