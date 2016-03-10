@@ -2,6 +2,7 @@ package com.theironyard.enitites;
 
 import com.sun.org.glassfish.gmbal.ManagedObject;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,13 +16,18 @@ public class Practitioner {
     @GeneratedValue
     int id;
 
-
+    @Column(nullable = false)
     String userName;
+    @Column(nullable = false)
     String password;
 
     public Practitioner(String userName, String password) {
         this.userName = userName;
         this.password = password;
+    }
+
+    public String getPasswordHash() {
+        return password;
     }
 
     public Practitioner() {

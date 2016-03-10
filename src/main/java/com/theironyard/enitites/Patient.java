@@ -1,9 +1,6 @@
 package com.theironyard.enitites;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by vajrayogini on 3/10/16.
@@ -14,11 +11,17 @@ public class Patient {
     @GeneratedValue
     int id;
 
+    @Column(nullable = false)
     String name;
+    @Column(nullable = false)
     int age;
+    @Column(nullable = false)
     String diagnosis;
+    @Column(nullable = false)
     String acuPoints;
+    @Column(nullable = false)
     String herbRx;
+    @Column(nullable = false)
     String treatmentDate;
 
     public Patient(String name, int age, String diagnosis, String acuPoints, String herbRx, String treatmentDate) {

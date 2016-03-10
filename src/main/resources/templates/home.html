@@ -1,31 +1,48 @@
 <html>
 <body>
 
-{{^name}}
+{{^practitioner}}
 
 <form action="/login" method="post">
-<input type="text" placeholder="Username" name="userName"/>
-<input type="text" placeholder="Passwrod" name="password"/>
+<input type="text" placeholder="Username" name="userName" required/>
+<input type="text" placeholder="Password" name="password" required/>
 <button type="submit">Submit</button>
 </form>
-{{/name}}
+{{/practitioner}}
 
-{{#name}}
+{{#practitioner}}
 
-{{name}}
+Welcome, {{name}}!
 <br>
 
 <form action="/logout" method="post">
 <button type="submit">Logout</button>
+</form>
 
-
+<form action="/create-patient" method="post">
+<input type="text" placeholder="Name" name="name">
+<input type="text" placeholder="Age" name="age">
+<input type="text" placeholder="Diagnosis" name="diagnosis">
+<input type="text" placeholder="AcuPoints" name="acuPoints">
+<input type="text" placeholder="Herb Rx" name="herbRx">
+<input type="text" placeholder="Treatment Date" name="treatementDate">
+<button type="submit">Submit</button>
 </form>
 
 
+<ol>
+    {{#patients}}
+    <form action="/delete-patient" method="post">
+        <li>
+        {{name}} {{age}} {{diagnosis}} {{acuPoints}} {{herbRx}} {{treatmentDate}}
+            <input type="hidden" value="{{id}}" name="id"/>
+            <button type="submit">Delete</button>
+    </li>
+    </form>
+    {{/patients}}
+</ol>
 
-
-
-{{/name}}
+{{/practitioner}}
 
 
 </body>
