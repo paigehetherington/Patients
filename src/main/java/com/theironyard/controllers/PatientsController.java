@@ -36,7 +36,7 @@ public class PatientsController {
     public String home(Model model, HttpSession session) {
         String userName = (String) session.getAttribute("userName");
         Practitioner practitioner = practitioners.findByUserName(userName);
-        model.addAttribute("patients", patients.findAll());
+        model.addAttribute("patients", patients.findByPractitioner(practitioner));
         model.addAttribute("practitioner", practitioner);
         return "home";
     }
@@ -63,8 +63,11 @@ public class PatientsController {
     }
 
     @RequestMapping(path = "/create-patient", method = RequestMethod.POST)
-    public String createPatient(HttpSession session, String name, int age, String diagnosis, String acuPoints, String herbRx, String treatmentDate) {
-        String userName = (String) session.getAttribute("userName");
+    public String createPatient(HttpSession session, String name, int age, String diagnosis, String acuPoints, String herbRx, String treatmentDate) throws Exception {
+        String userName = (String) session.getAttribute("userName");// (String) like string.valueof
+        if (userName == null) {
+            throw new Exception("Not logged in!");
+        }
         Practitioner practitioner = practitioners.findByUserName(userName);
         Patient patient = new Patient(name, age, diagnosis, acuPoints, herbRx, treatmentDate, practitioner);
         patients.save(patient);
