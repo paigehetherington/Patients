@@ -24,16 +24,74 @@ public class Patient {
     @Column(nullable = false)
     String treatmentDate;
 
-    public Patient(String name, int age, String diagnosis, String acuPoints, String herbRx, String treatmentDate) {
+
+    public Patient(String name, int age, String diagnosis, String acuPoints, String herbRx, String treatmentDate, Practitioner practitioner) {
         this.name = name;
         this.age = age;
         this.diagnosis = diagnosis;
         this.acuPoints = acuPoints;
         this.herbRx = herbRx;
         this.treatmentDate = treatmentDate;
+        this.practitioner = practitioner;
     }
 
     public Patient() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
+
+    public String getAcuPoints() {
+        return acuPoints;
+    }
+
+    public void setAcuPoints(String acuPoints) {
+        this.acuPoints = acuPoints;
+    }
+
+    public String getHerbRx() {
+        return herbRx;
+    }
+
+    public void setHerbRx(String herbRx) {
+        this.herbRx = herbRx;
+    }
+
+    public String getTreatmentDate() {
+        return treatmentDate;
+    }
+
+    public void setTreatmentDate(String treatmentDate) {
+        this.treatmentDate = treatmentDate;
+    }
+
+    public Practitioner getPractitioner() {
+        return practitioner;
+    }
+
+    public void setPractitioner(Practitioner practitioner) {
+        this.practitioner = practitioner;
     }
 
     @ManyToOne

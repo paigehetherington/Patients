@@ -33,8 +33,11 @@ public class PatientsController {
 
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home(Model model) {
-        model.addAttribute(patients.findAll());
+    public String home(Model model, HttpSession session) {
+        String userName = (String) session.getAttribute("userName");
+        Practitioner practitioner = practitioners.findByUserName(userName);
+        model.addAttribute("patients", patients.findAll());
+        model.addAttribute("practitioner", practitioner);
         return "home";
     }
 
@@ -63,9 +66,31 @@ public class PatientsController {
     public String createPatient(HttpSession session, String name, int age, String diagnosis, String acuPoints, String herbRx, String treatmentDate) {
         String userName = (String) session.getAttribute("userName");
         Practitioner practitioner = practitioners.findByUserName(userName);
-        Patient patient = new Patient(name, age, diagnosis, acuPoints, herbRx, treatmentDate);
+        Patient patient = new Patient(name, age, diagnosis, acuPoints, herbRx, treatmentDate, practitioner);
         patients.save(patient);
         return "redirect:/";
+
+    }
+
+    @RequestMapping(path = "/update-patient", method = RequestMethod.GET)
+    public String updatePatient(Model model, int updateId) {
+        Patient p = patients.findOne(updateId);
+        model.addAttribute("patient", p);
+        return "update";
+    }
+
+    @RequestMapping(path = "/update-patient", method = RequestMethod.POST)
+    public String updatePatient(HttpSession session, int updateId, String name, int age, String diagnosis, String acuPoints, String herbRx, String treatmentDate) {
+        Patient p = patients.findOne(updateId);
+        p.setName(name);
+        p.setAge(age);
+        p.setDiagnosis(diagnosis);
+        p.setAcuPoints(acuPoints);
+        p.setHerbRx(herbRx);
+        p.setTreatmentDate(treatmentDate);
+        patients.save(p);
+        return "redirect:/";
+
 
     }
 

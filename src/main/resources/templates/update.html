@@ -1,0 +1,23 @@
+<html>
+<body>
+
+{{#patient}}
+
+{{id}} - {{name}} - {{age}} - {{diagnosis}} - {{acuPoints}} - {{herbRx}} - {{treatmentDate}}
+
+<form action="/update-patient" method="post">
+    <input type="hidden" value="{{id}}" name="updateId">
+    <input type="text" placeholder="Name" name="name">
+    <input type="number" placeholder="Age" name="age">
+    <input type="text" placeholder="Diagnosis" name="diagnosis">
+    <input type="text" placeholder="AcuPoints" name="acuPoints">
+    <input type="text" placeholder="Herb Rx" name="herbRx">
+    <input type="text" placeholder="Treatment Date" name="treatmentDate">
+    <button type="submit">Submit</button>
+
+</form>
+
+
+{{/patient}}
+</body>
+</html>

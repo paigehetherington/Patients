@@ -12,7 +12,7 @@
 
 {{#practitioner}}
 
-Welcome, {{name}}!
+Welcome, {{userName}}!
 <br>
 
 <form action="/logout" method="post">
@@ -21,11 +21,11 @@ Welcome, {{name}}!
 
 <form action="/create-patient" method="post">
 <input type="text" placeholder="Name" name="name">
-<input type="text" placeholder="Age" name="age">
+<input type="number" placeholder="Age" name="age">
 <input type="text" placeholder="Diagnosis" name="diagnosis">
 <input type="text" placeholder="AcuPoints" name="acuPoints">
 <input type="text" placeholder="Herb Rx" name="herbRx">
-<input type="text" placeholder="Treatment Date" name="treatementDate">
+<input type="text" placeholder="Treatment Date" name="treatmentDate">
 <button type="submit">Submit</button>
 </form>
 
@@ -37,10 +37,12 @@ Welcome, {{name}}!
         {{name}} {{age}} {{diagnosis}} {{acuPoints}} {{herbRx}} {{treatmentDate}}
             <input type="hidden" value="{{id}}" name="id"/>
             <button type="submit">Delete</button>
+            <a href="/update-patient?updateId={{id}}">Update Patient</a>
     </li>
     </form>
     {{/patients}}
 </ol>
+
 
 {{/practitioner}}
 
