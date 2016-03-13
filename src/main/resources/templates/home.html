@@ -32,9 +32,11 @@ Welcome, {{userName}}!
 
 <ol>
     {{#patients}}
+
+
     <form action="/delete-patient" method="post">
         <li>
-        {{name}} {{age}} {{diagnosis}} {{acuPoints}} {{herbRx}} {{treatmentDate}}
+            {{name}} {{age}} {{diagnosis}} {{acuPoints}} {{herbRx}} {{treatmentDate}}
             <input type="hidden" value="{{id}}" name="id"/>
             <button type="submit">Delete</button>
             <a href="/update-patient?updateId={{id}}">Update Patient</a>
