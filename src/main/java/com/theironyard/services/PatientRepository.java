@@ -15,4 +15,5 @@ import java.util.List;
 public interface PatientRepository extends CrudRepository<Patient, Integer> {
     Page<Patient> findByPractitioner(Pageable pageable, Practitioner practitioner);
     Page<Patient> findAll(Pageable pageable);
+    //List<Patient> findAllSortByNameStartingWithDesc(String name);
 }

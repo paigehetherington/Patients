@@ -42,12 +42,12 @@ public class PatientsController {
         page = (page == null) ? 0 : page;
         PageRequest pr = new PageRequest(page, 5);
         Page<Patient> p;
-//        if (practitioner != null) {
-//            p = patients.findByPractitioner(pr, practitioner);
-//        }
-//        else {
+        if (practitioner != null) {
+            p = patients.findByPractitioner(pr, practitioner);
+        }
+        else {
               p = patients.findAll(pr);
-//        }
+        }
         model.addAttribute("patients", p);
         model.addAttribute("nextPage", page + 1);
         model.addAttribute("showNext", p.hasNext());
