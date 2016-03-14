@@ -6,6 +6,8 @@ import com.theironyard.services.PatientRepository;
 import com.theironyard.services.PractitionerRepository;
 import com.theironyard.utils.PasswordStorage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 
 /**
  * Created by vajrayogini on 3/10/16.
@@ -33,11 +36,27 @@ public class PatientsController {
 
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home(Model model, HttpSession session) {
+    public String home(Model model, HttpSession session, Integer page) {
         String userName = (String) session.getAttribute("userName");
         Practitioner practitioner = practitioners.findByUserName(userName);
-        model.addAttribute("patients", patients.findByPractitioner(practitioner));
+        page = (page == null) ? 0 : page;
+        PageRequest pr = new PageRequest(page, 5);
+        Page<Patient> p;
+//        if (practitioner != null) {
+//            p = patients.findByPractitioner(pr, practitioner);
+//        }
+//        else {
+              p = patients.findAll(pr);
+//        }
+        model.addAttribute("patients", p);
+        model.addAttribute("nextPage", page + 1);
+        model.addAttribute("showNext", p.hasNext());
         model.addAttribute("practitioner", practitioner);
+        model.addAttribute("previousPage", page - 1);
+        model.addAttribute("showPrevious", p.hasPrevious());
+        model.addAttribute("now", LocalDateTime.now());
+//        model.addAttribute("patients", patients.findByPractitioner(practitioner));
+       model.addAttribute("practitioner", practitioner);
         return "home";
     }
 
@@ -69,7 +88,7 @@ public class PatientsController {
             throw new Exception("Not logged in!");
         }
         Practitioner practitioner = practitioners.findByUserName(userName);
-        Patient patient = new Patient(name, age, diagnosis, acuPoints, herbRx, treatmentDate, practitioner);
+        Patient patient = new Patient(name, age, diagnosis, acuPoints, herbRx, LocalDateTime.parse(treatmentDate), practitioner);
         patients.save(patient);
         return "redirect:/";
 
@@ -90,7 +109,7 @@ public class PatientsController {
         p.setDiagnosis(diagnosis);
         p.setAcuPoints(acuPoints);
         p.setHerbRx(herbRx);
-        p.setTreatmentDate(treatmentDate);
+        p.setTreatmentDate(LocalDateTime.parse(treatmentDate));
         patients.save(p);
         return "redirect:/";
 

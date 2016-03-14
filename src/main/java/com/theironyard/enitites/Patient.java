@@ -1,6 +1,7 @@
 package com.theironyard.enitites;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * Created by vajrayogini on 3/10/16.
@@ -22,10 +23,10 @@ public class Patient {
     @Column(nullable = false)
     String herbRx;
     @Column(nullable = false)
-    String treatmentDate;
+    LocalDateTime treatmentDate;
 
 
-    public Patient(String name, int age, String diagnosis, String acuPoints, String herbRx, String treatmentDate, Practitioner practitioner) {
+    public Patient(String name, int age, String diagnosis, String acuPoints, String herbRx, LocalDateTime treatmentDate, Practitioner practitioner) {
         this.name = name;
         this.age = age;
         this.diagnosis = diagnosis;
@@ -78,11 +79,11 @@ public class Patient {
         this.herbRx = herbRx;
     }
 
-    public String getTreatmentDate() {
+    public LocalDateTime getTreatmentDate() {
         return treatmentDate;
     }
 
-    public void setTreatmentDate(String treatmentDate) {
+    public void setTreatmentDate(LocalDateTime treatmentDate) {
         this.treatmentDate = treatmentDate;
     }
 
